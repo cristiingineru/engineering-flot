@@ -1,0 +1,13 @@
+{
+    "files": {
+        "included": [
+            "jquery.canvaswrapper.js",
+            "jquery.flot*.js"
+        ],
+        "excluded": [
+            "lib/**/*.js",
+            "tests/**/*.js",
+            "examples/**/*.js"
+        ]
+    }
+}
