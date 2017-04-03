@@ -38,5 +38,8 @@
     "phantomjs-polyfill-find": "0.0.1",
     "tmp": "0.0.31",
     "travis-github-lint-status": "^1.0.1"
+  },
+  "dependencies": {
+    "jquery-mobile": "1.4.1"
   }
 }

@@ -266,6 +266,20 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             return result;
         }
 
+        function saveNavigationData(plot, e) {
+            if (e.originalEvent.touches && e.originalEvent.touches[0]) {
+                var opts = plot.getOptions();
+                opts.navigationData = {
+                    lastClientX: e.originalEvent.touches[0].clientX,
+                    lastClientY: e.originalEvent.touches[0].clientY
+                }
+            }
+        }
+
+        function retrieveNavigationData(plot) {
+            return plot.getOptions().navigationData || {};
+        }
+
         function onDragStart(e) {
             if (e.which !== 1) {
                 // only accept left-click
@@ -281,6 +295,8 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             startPageX = e.pageX || e.originalEvent.touches[0].clientX;
             startPageY = e.pageY || e.originalEvent.touches[0].clientY;
             plotState = plot.navigationState();
+
+            saveNavigationData(plot, e);
         }
 
         function onDrag(e) {
@@ -305,6 +321,8 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
 
                 panTimeout = null;
             }, 1 / frameRate * 1000);
+
+            saveNavigationData(plot, e);
         }
 
         function onDragEnd(e) {
@@ -314,12 +332,11 @@ Licensed under the MIT License ~ http://threedubmedia.googlecode.com/files/MIT-L
             }
 
             plot.getPlaceholder().css('cursor', prevCursor);
-            if (e.pageX || e.originalEvent.touches[0]) {
-                plot.smartPan({
-                    x: startPageX - (e.pageX || e.originalEvent.touches[0].clientX),
-                    y: startPageY - (e.pageY || e.originalEvent.touches[0].clientY)
-                }, plotState);
-            }
+            var data = retrieveNavigationData(plot);
+            plot.smartPan({
+                x: startPageX - (e.pageX || data.clientX),
+                y: startPageY - (e.pageY || data.clientY)
+            }, plotState);
             panHint = null;
         }
 
