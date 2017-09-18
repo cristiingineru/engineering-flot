@@ -7,7 +7,7 @@
     "coverage": "node node_modules/karma/bin/karma start --single-run --coverage --no-auto-watch --concurrency=1",
     "build": "node build",
     "build-test": "npm --silent run build test",
-    "dont-break": "dont-break --timeout 30"
+    "dont-break": "dont-break --timeout 300"
   },
   "repository": {
     "type": "git",
