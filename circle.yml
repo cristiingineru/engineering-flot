@@ -1,7 +1,10 @@
 machine:
   node:
-    version: "0.12"
+    version: "8.0.0"
 dependencies:
+  pre:
+    - node --version
+    - npm --version
   post:
     - npm install -g dont-break
 test:
